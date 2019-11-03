@@ -1,0 +1,58 @@
+html, body{margin: 0; height: 100%;}
+.ctr{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game{
+    background-color: lightblue;
+    width: 500px;
+    height: 300px;
+    position: relative;
+}
+
+.player{
+    width: 50px;
+    height: 15%;
+    background-color: mediumslateblue;
+    position: absolute;
+    top: 45%;
+    left: 20%;
+    transition: .3s linear;
+}
+
+.control{
+    text-align: center;
+    margin: 20px;
+}
+
+button{
+    padding: 5px 15px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.wall{
+    width: 10%;
+    background-color: transparent;
+    position: absolute;
+    right: 0;
+    animation: running-wall 5s linear;
+}
+
+.tb{
+    bottom: 0;
+}
+.ta{
+    top: 0;
+}
+
+@keyframes running-wall{
+    0%{right: 0%; background-color: limegreen;}
+    99%{background-color: limegreen;}
+    100%{right: 90%; background-color: transparent;}
+}
+
+/* 85 mentok player*/
+/* 90 mentok tembok*/
