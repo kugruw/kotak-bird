@@ -5,6 +5,11 @@ html, body{margin: 0; height: 100%;}
     align-items: center;
 }
 
+.ctr-x{
+    display: flex;
+    justify-content: center;
+}
+
 .game{
     background-color: lightblue;
     width: 500px;
@@ -12,14 +17,47 @@ html, body{margin: 0; height: 100%;}
     position: relative;
 }
 
+.counter123{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    z-index: 999;
+}
+
 .player{
     width: 50px;
     height: 15%;
-    background-color: mediumslateblue;
+    background-color: darkslateblue;
     position: absolute;
     top: 45%;
     left: 20%;
     transition: .3s linear;
+}
+
+.eye{
+    width: 12px;
+    height: 12px;
+    background-color: dodgerblue;
+    position: absolute;
+    top: 8px;
+}
+
+.eye-r{
+    right: 7px;
+}
+
+.eye-l{
+    left: 7px;
+}
+
+.mouth{
+    width: 75%;
+    height: 5px;
+    background-color: crimson;
+    position: absolute;
+    bottom: 10px;
 }
 
 .control{
@@ -52,6 +90,18 @@ button{
     0%{right: 0%; background-color: limegreen;}
     99%{background-color: limegreen;}
     100%{right: 90%; background-color: transparent;}
+}
+
+.hide{
+    display: none;
+}
+
+.ta-r{
+    text-align: right;
+}
+
+.ta-c{
+    text-align: center;
 }
 
 /* 85 mentok player*/
