@@ -4,11 +4,12 @@
 
         player: {
             elm: s('.player'),
-            position: 45,
+            position: 45
         },
 
         wall: {
             position: 0,
+            first: true,
             create: (style, height) => {
                 const elm = document.createElement('div');
                 elm.classList.add('wall', style);
@@ -33,13 +34,20 @@
             end: 3 + 1
         },
 
+        audio: {
+            jump: s('audio#jump'),
+            pass: s('audio#pass'),
+            die: s('audio#die')
+        },
+
         retry: s('#retry')
     };
 
     //Wall
     const runningWall = setInterval(() => {
         const wallHeight = Math.floor(Math.random() * 70);
-
+        if(game.wall.first == true) game.wall.first = false;
+        else ss('.wall').forEach(elm => elm.remove());
         game.wall.create('ta', wallHeight);
         game.wall.create('tb', (90 - 10) - wallHeight);
     }, 5000);
@@ -60,6 +68,7 @@
             const pos = {
                 wall: {
                     left: wall.bottom.offsetLeft,
+                    right: wall.bottom.offsetLeft + wall.bottom.offsetWidth,
                     top: wall.top.offsetTop + wall.top.offsetHeight,
                     bottom: wall.bottom.offsetTop
                 },
@@ -69,7 +78,7 @@
                     bottom: game.player.elm.offsetTop + game.player.elm.offsetHeight,
                 }
             }
-            if (pos.wall.left == pos.player.left) {
+            if (pos.player.left >= pos.wall.left && pos.player.left <= pos.wall.right) {
                 //On nabrak
                 if (pos.player.top <= pos.wall.top || pos.player.bottom >= pos.wall.bottom) {
                     clearInterval(runningWall);
@@ -80,7 +89,10 @@
                     game.elm.style.filter = 'grayscale(1)';
                     game.counter123.elm.innerText = 'Wasted!';
                     game.counter123.elm.show();
+                    game.audio.die.play();
                 }
+            }else if(pos.player.left == pos.wall.right + 1){
+                game.audio.pass.play();
             }
         }, 1);
     }, 5000);
@@ -103,17 +115,21 @@
 
         game.player.position -= 5;
         game.player.elm.style.top = game.player.position + '%';
+        game.audio.jump.play();
     }
     game.controller.down.onclick = () => {
         if (game.player.position >= 85) return;
 
         game.player.position += 5;
         game.player.elm.style.top = game.player.position + '%';
+        game.audio.jump.play();
     }
-    window.onkeydown = () => {
-        const key = window.event.key;
-        if (key == 'ArrowUp') game.controller.up.click();
-        else if (key == 'ArrowDown') game.controller.down.click();
+    window.onkeydown = (e) => {
+        const code = e.code;
+        if (code == 'ArrowUp') game.controller.up.click();
+        else if (code == 'ArrowDown') game.controller.down.click();
+        else if (code == 'Space') game.retry.click();
     }
 })();
 //: => bug nabrak abis lewat pinggirs trus kenaik (di dalem pipa)
+//Sfx
